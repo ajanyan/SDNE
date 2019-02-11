@@ -3,7 +3,7 @@ import pickle as pkl
 import numpy as np
 import networkx as nx
 import math
-from core import SDNE
+from sdne import SDNE
 from sklearn.model_selection import train_test_split
 from itertools import product
 from tqdm import tqdm
@@ -21,4 +21,6 @@ dev_ratio = 0.1
 test_ratio = 0.15
 
 train_set, test_edges = train_test_split(g.edges(), test_size=test_ratio)
+g.remove_edges_from(test_edges)
+g.add_edges_from([(i,i) for i in np.arange(g.number_of_nodes())])
 
