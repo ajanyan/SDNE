@@ -9,10 +9,13 @@ from itertools import product
 from tqdm import tqdm
 from keras.callbacks import Callback
 
+encode_dim = 8
+encoding_layer_dim = [16,10]
+
 batch_size = 64
 ks = [1, 5, 50, 100, 150, 250, 400, 500, 5000]
 
-g = nx.read_edgelist('data/grqc.txt', create_using=nx.Graph())
+g = nx.read_edgelist('data/karate.edgelist', create_using=nx.Graph())
 g = nx.convert_node_labels_to_integers(g)
 
 parameter_dicts = [{'beta': 2, 'alpha': 2, 'l2_param': 1e-4}]
