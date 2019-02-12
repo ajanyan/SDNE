@@ -38,7 +38,7 @@ class SNDE:
         # 16 10
         model = Sequential()
         for dim in encoding_layer_dims:
-            model.add(Dense(dim, activation='sigmoid')
+            model.add(Dense(dim, activation='sigmoid'))
         
         # 8
         model.add(Dense(encode_dim, activation='sigmoid'))
@@ -48,4 +48,10 @@ class SNDE:
         decoding_layer_dims = encoding_layer_dims[::-1]
         for dim in decoding_layer_dims:
             model.add(Dense(dim, activation='sigmoid'))
+
+
+        model.compile(loss="reconstruction_loss",optimizer="adadelta")
+
+
+
 

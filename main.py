@@ -27,3 +27,6 @@ train_set, test_edges = train_test_split(g.edges(), test_size=test_ratio)
 g.remove_edges_from(test_edges)
 g.add_edges_from([(i,i) for i in np.arange(g.number_of_nodes())])
 
+
+
+model.fit(epochs=200, batch_size=batch_size,steps_per_epoch=n_batches,callbacks=[eval_callback])
