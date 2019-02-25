@@ -1,7 +1,8 @@
+import numpy
+
 from keras.models import Sequential,Model
 from keras.layers import Dense
 import networkx as nx
-import numpy as np
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.utils import np_utils
 from sklearn.preprocessing import LabelEncoder
@@ -35,8 +36,5 @@ print("#########################################################################
 #Encoder Model
 encoder=Model(model.input, model.get_layer('encoder').output)
 
-#print(encoder.predict(adj_mat))
-#Save the embedding
-embedding = encoder.predict(adj_mat)
-np.savetxt('karate.embedding2',embedding)
+print(encoder.predict(adj_mat))
 

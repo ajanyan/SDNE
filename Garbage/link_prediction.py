@@ -102,7 +102,7 @@ def one_run(g, dev_edges, test_edges, params):
     # becauses num. of edges in the paper about 2 times than the actual number of edges
     # the original:
     #ks = [2, 10, 100, 200, 300, 500, 800, 1000, 10000]
-    model = SDNE(g, encode_dim=8, encoding_layer_dims=[5242, 500], **params)
+    model = SDNE(g, encode_dim=9, encoding_layer_dims=[5242, 500], **params)
     print('pre-training...')
     model.pretrain(epochs=1, batch_size=batch_size)
     print('training...')
@@ -111,10 +111,15 @@ def one_run(g, dev_edges, test_edges, params):
     eval_callback = PrecisionAtKEval(g, dev_edges, test_edges,
                                      decoder=model.decoder,
                                      ks=ks)
-    model.fit(epochs=200, batch_size=batch_size, 
+    model.fit(epochs=50, batch_size=batch_size, 
               steps_per_epoch=n_batches,
               callbacks=[eval_callback])
-    
+
+    #Save the embedding
+    embedding = model.get_node_embedding()
+    np.savetxt('karate.embedding',embedding)
+
+
     test_evaluator = PrecisionAtKEval(
         g, test_edges, dev_edges,  # now we evaluate on test edges
         decoder=model.decoder,
