@@ -39,11 +39,10 @@ model.add(Dense(embedding_dim, kernel_initializer='normal', activation='sigmoid'
 
 #Creating Decoding Layers Accordinng to Requirement
 for i, dim in enumerate(decoding_layer_dims):
-            layer = Dense(dim, kernel_initializer='normal', activation='sigmoid',kernel_regularizer=regularizers.l2(l2_param), name='encoding-layer-{}'.format(i))
+            layer = Dense(dim, kernel_initializer='normal', activation='sigmoid',kernel_regularizer=regularizers.l2(l2_param), name='decoding-layer-{}'.format(i))
             model.add(layer)
 
 model.compile(loss='binary_crossentropy', optimizer='adadelta', metrics=['accuracy'])
-#model.compile(loss='poisson', optimizer='adadelta', metrics=['accuracy'])
 model.fit(adj_mat,adj_mat,epochs=1000)
 
 print("###############################################################################################")
